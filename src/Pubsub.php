@@ -26,6 +26,38 @@ class Pubsub
         $this->service = new \Google_Service_Pubsub($this->client);
 	}
 
+	public function createTopic($topic_name=""){
+
+		$name = "projects/{$thid->project_id}/topics/".$name;
+		$postBody = new \Google_Service_Pubsub_Topic($this->client);
+		$response = $this->service->projects_topics->create($name, $postBody);
+		return $response;
+	}
+	public function deleteTopic($topic_name=""){
+
+		$name = "projects/{$thid->project_id}/topics/".$name;
+		$response = $this->service->projects_topics->delete($name);
+		return $response;
+	}
+
+	public function createPullSubscription($subscription_name, $topic,$ack_deadline=30){
+
+		$name = "projects/{$this->project_id}/subscriptions/".$subscription_name;
+
+		$postBody = new \Google_Service_Pubsub_Subscription($this->client);
+		$postBody->setAckDeadlineSeconds($ack_deadline);
+		$postBody->setName($subscription_name);
+		$postBody->setTopic($this->getQueueTopicUrl($topic));
+
+		$pushConfig = new \Google_Service_Pubsub_PushConfig($this->client);
+		$pushConfig->setAttributes([
+			['deliveryType'=>'pull']
+			]);
+
+		$response = $service->projects_subscriptions->create($name, $postBody);
+		return $response;
+	}
+
 	public function sendMessage($message_title='',$data=[])
 	{
 		  $postBody = new \Google_Service_Pubsub_PublishRequest($this->client);
@@ -75,8 +107,11 @@ class Pubsub
           return $response;
 	}
 
-	private function getQueueTopicUrl(){
-		return "projects/{$this->project_id}/topics/".$this->topic;
+	private function getQueueTopicUrl($topic){
+		if($topic == null){
+			$topic = $this->topic;
+		}
+		return "projects/{$this->project_id}/topics/".$topic;
 	}
 
 	private function getQueueSubscriptionUrl(){
