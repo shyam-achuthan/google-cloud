@@ -1,0 +1,19 @@
+{
+    "name": "shyam-achuthan/google-cloud",
+    "description": "A library for easy access of google cloud platform - PubSub ( Alternative to Amazon SQS )",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shyam-achuthan",
+            "email": "shyam@shyamachuthan.com"
+        }
+    ],
+    "require": {
+        "google/apiclient": "^2.0.0@RC"
+    },
+    "autoload": {
+        "psr-4": {
+            "GoogleCloud\\": "src/"
+        }
+    }
+}
