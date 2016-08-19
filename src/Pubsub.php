@@ -33,9 +33,10 @@ class Pubsub
 		$response = $this->service->projects_topics->create($name, $postBody);
 		return $response;
 	}
+
 	public function deleteTopic($topic_name=""){
 
-		$name = "projects/{$thid->project_id}/topics/".$topic_name;
+		$name = "projects/{$this->project_id}/topics/".$topic_name;
 		$response = $this->service->projects_topics->delete($name);
 		return $response;
 	}
@@ -54,7 +55,7 @@ class Pubsub
 			['deliveryType'=>'pull']
 			]);
 
-		$response = $service->projects_subscriptions->create($name, $postBody);
+		$response = $this->service->projects_subscriptions->create($name, $postBody);
 		return $response;
 	}
 
