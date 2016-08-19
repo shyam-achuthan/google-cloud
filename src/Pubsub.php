@@ -1,5 +1,5 @@
 <?php 
-namespace \GoogleCloud;
+namespace GoogleCloud;
 
 /**
 * 
@@ -28,14 +28,14 @@ class Pubsub
 
 	public function createTopic($topic_name=""){
 
-		$name = "projects/{$thid->project_id}/topics/".$name;
+		$name = "projects/{$this->project_id}/topics/".$topic_name;
 		$postBody = new \Google_Service_Pubsub_Topic($this->client);
 		$response = $this->service->projects_topics->create($name, $postBody);
 		return $response;
 	}
 	public function deleteTopic($topic_name=""){
 
-		$name = "projects/{$thid->project_id}/topics/".$name;
+		$name = "projects/{$thid->project_id}/topics/".$topic_name;
 		$response = $this->service->projects_topics->delete($name);
 		return $response;
 	}
